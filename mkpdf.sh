@@ -34,6 +34,13 @@
 
 # Mattia Monga, mattia.monga@unimi.it, 2018-04-29
 # - bebrasyear can be set from commandline (default current year)
+# The script is easily run also with a docker container
+# $ docker pull mmonga/bebraspdfconverter
+# $ docker run --rm -ti -v $(pwd):/home/user mmonga/bebraspdfconverter
+# By default it uses a mkpdf.sh versioned a https://github.com/monga/bebraspdfconverter
+# (thus docker dependencies and the script go together), but one can use own version
+# of the script just by adding it to the command line
+# $ docker run --rm -ti -v $(pwd):/home/user mmonga/bebraspdfconverter ./mkpdf.sh
 
 bebrasyear="${1:-$(date +%Y)}"
 
