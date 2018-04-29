@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 USER root
 # workaround slim image
 RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7
-RUN apt-get update && apt-get install -yq libreoffice pdftk psmisc unoconv wkhtmltopdf && apt-get clean && rm -rf /var/lib/apt/*
+RUN apt-get update && apt-get install -yq ghostscript libreoffice psmisc unoconv wkhtmltopdf && apt-get clean && rm -rf /var/lib/apt/*
 RUN useradd user
 USER user
 COPY mkpdf.sh /usr/local/bin/mkpdf.sh

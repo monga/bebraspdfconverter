@@ -5,7 +5,7 @@
 
 # Christian Datzko, christian.datzko@informatik-biber.ch, 2017-05-26:
 # For compatibility with Ubuntu 16.04LTS as well as 14.04LTS (and probably many other flavors of Ubuntu or even Debian):
-# - install wkhtmltopdf, unoconv and pdftk
+# - install wkhtmltopdf, unoconv (and no longer pdftk, 2018-04-28)
 # - change first line of this file to #/bin/bash
 # This does not work with html files that have spaces in its name.
 # Headless running on a linux server (html -> pdf fails because no X server is running):
@@ -30,6 +30,9 @@
 # - added a variable for the bebras year and changed it throughout the script to have more flexibility
 
 bebrasyear="2018"
+# Christian Datzko, christian.datzko@informatik-biber.ch, 2018-04-28
+# - replaced pdftk with Ghostscript, because pdftk is no longer available in Ubuntu 18.04 LTS
+
 
 killall unoconv
 unoconv -l &
@@ -53,15 +56,10 @@ find pdf -type f -name "*.pdf" | sort | while read p; do
     mv "$p" "pdf/pdf/$t.pdf"
     l=$(($l + 1))
 done
-echo pdftk pdf/pdf/*.pdf cat output all.pdf
-pdftk pdf/pdf/*.pdf cat output all.pdf
+echo gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=all.pdf pdf/pdf/*.pdf
+gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=all.pdf pdf/pdf/*.pdf
 
-mkdir pdf/first
-find pdf/pdf -type f -name "*.pdf" | sort | while read p; do
-    echo pdftk "$p" cat 1 output "$(basename $p)"
-    pdftk "$p" cat 1 output "pdf/first/$(basename $p)"
-done
-echo pdftk pdf/first/*.pdf cat output all-first.pdf
-pdftk pdf/first/*.pdf cat output all-first.pdf
+echo gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dFirstPage=1 -dLastPage=1 -sOutputFile=all-first.pdf pdf/pdf/*.pdf
+gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dFirstPage=1 -dLastPage=1 -sOutputFile=all-first.pdf pdf/pdf/*.pdf
 
 rm -rf pdf
