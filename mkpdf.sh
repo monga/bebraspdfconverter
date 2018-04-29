@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Mattia Monga, mattia.monga@unimi.it, 2017-05-26
-# Initial verison
+# Initial version
 
 # Christian Datzko, christian.datzko@informatik-biber.ch, 2017-05-26:
 # For compatibility with Ubuntu 16.04LTS as well as 14.04LTS (and probably many other flavors of Ubuntu or even Debian):
@@ -29,10 +29,13 @@
 # Christian Datzko, christian.datzko@informatik-biber.ch, 2018-03-16
 # - added a variable for the bebras year and changed it throughout the script to have more flexibility
 
-bebrasyear="2018"
 # Christian Datzko, christian.datzko@informatik-biber.ch, 2018-04-28
 # - replaced pdftk with Ghostscript, because pdftk is no longer available in Ubuntu 18.04 LTS
 
+# Mattia Monga, mattia.monga@unimi.it, 2018-04-29
+# - bebrasyear can be set from commandline (default current year)
+
+bebrasyear="${1:-$(date +%Y)}"
 
 killall unoconv
 unoconv -l &
