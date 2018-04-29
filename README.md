@@ -8,10 +8,12 @@ To build a local docker container, clone this repo and:
 docker build -t bebraspdfconverter .
 ```
 
+(or use the pre-built image on the docker hub: `docker pull mmonga/bebraspdfconverter`)
+
 To run it, `cd` in the `TaskProposals` directory and:
 
 ```sh
-docker run --rm -v $(pwd):/home/user
+docker run --rm -ti -v $(pwd):/home/user bebraspdfconverter
 ```
 
 (if your system doesn't support the `$(pwd)` syntax, just write down the full
