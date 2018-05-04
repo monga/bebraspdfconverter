@@ -42,6 +42,9 @@
 # of the script just by adding it to the command line
 # $ docker run --rm -ti -v $(pwd):/home/user mmonga/bebraspdfconverter ./mkpdf.sh
 
+# Mattia Monga, mattia.monga@unimi.it, 2018-04-29
+# Follow symbolic links (useful to run the script on a selection of tasks)
+
 bebrasyear="${1:-$(date +%Y)}"
 
 killall unoconv
@@ -49,7 +52,7 @@ unoconv -l &
 
 rm -rf pdf
 mkdir -p pdf/pdf
-find -type d -name "$bebrasyear*" | while read d; do
+find . -L -type d -name "$bebrasyear*" | while read d; do
     find "$d" -type f -name "$bebrasyear*" | grep -E 'htm$|html$' | sort | while read f; do
         echo html2pdf "$f" "pdf${d:1}.pdf"
         wkhtmltopdf "$f" "pdf${d:1}.pdf" 2> /dev/null
