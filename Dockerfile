@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:bullseye-slim
 LABEL maintainer="Mattia Monga <mattia.monga@unimi.it>"
 ENV DEBIAN_FRONTEND noninteractive
 USER root
